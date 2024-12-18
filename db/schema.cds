@@ -7,7 +7,7 @@ using {
 namespace sap.capire.moviestudio;
 
 entity Roles : cuid, managed {
-  name : String @mandetory;
+  name : String @mandatory;
   person : Association to Persons;
   film : Association to Films;
 }
