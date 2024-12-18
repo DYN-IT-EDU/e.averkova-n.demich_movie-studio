@@ -6,20 +6,13 @@ using {
 } from '@sap/cds/common';
 namespace sap.capire.moviestudio;
 
-entity Roles : cuid, managed {
-  name : String @mandatory;
-  person : Association to Persons;
-  film : Association to Films;
-}
-
 entity Persons : cuid, managed {
   firstName   : String @mandatory;                                         // Имя
   lastName    : String @mandatory;                                         // Фамилия
   name        : String = firstName ||' '|| lastName;
   dateOfBirth : Date;                                                      // Дата рождения
-  occupation  : Association to Roles @mandatory @assert.range: true;       // Роль в индустрии (актёр, режиссёр и т.д.)
   directors   : Association to many Films on directors.director = $self;
-  characters  : Association to many Characters on characters.person = $self;
+  roles       : Association to many Roles on roles.person = $self;
   crew        : Association to many Crew on crew.person = $self;
   contracts   : Composition of many Contracts on contracts.person = $self;
 }
@@ -33,12 +26,12 @@ entity Films : cuid, managed {
   title       : String @mandatory;                                    // Название фильма
   description : String;                                               // Описание сюжета
   releaseDate : Date;                                                 // Дата выхода
-  genre       : Association to Genres @mandatory @assert.range: true; // Жанр фильма
+  genre       : Association to Genres @mandatory @assert.tsarget;     // Жанр фильма
   director    : Association to Persons;                               // Режиссёр фильма
   budget      : Money;                                                // Бюджет
   boxOffice   : Money;                                                // Сборы в кассе
   duration    : Integer;                                              // Длительность (в минутах)
-  characters  : Composition of many Characters on characters.film = $self;
+  roles       : Composition of many Roles on roles.film = $self;
   crew        : Composition of many Crew on crew.film = $self;
   schedules   : Composition of many Schedules on schedules.film = $self;
   contracts   : Composition of many Contracts on contracts.film = $self;
@@ -57,7 +50,7 @@ entity FilmsTotalExpenses as select from Films LEFT JOIN Expenses on Films.ID = 
   sum(amount) as amount
 }
 
-entity Characters : cuid, managed {
+entity Roles : cuid, managed {
   film          : Association to Films;   // Связь с фильмом
   person        : Association to Persons; // Связь с актёром
   characterName : String;                 // Имя персонажа
