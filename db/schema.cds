@@ -71,6 +71,7 @@ entity Crew : cuid, managed {
   film     : Association to Films;     // Связь с фильмом
   person   : Association to Persons;   // Связь с персоной
   position : Association to Positions; // Связь с позицией
+  schedule : Composition of Schedules on schedule.crew = $self;
 }
 
 entity Locations : cuid, managed {
@@ -83,6 +84,7 @@ entity Locations : cuid, managed {
 entity Schedules : cuid, managed {
   film          : Association to Films;     // Связь с фильмом
   location      : Association to Locations; // Связь с локацией
+  crew          : Association to Crew;
   shoots        : many {
     startDate   : Date;                     // Дата начала съёмок
     endDate     : Date;                     // Дата окончания 
