@@ -19,7 +19,7 @@ entity Persons : cuid, managed {
 
 entity Genres : cuid, managed{
   name : String @mandatory;
-  film : Association to many Films on film.genre = $self;
+  films : Association to many Films on films.genre = $self;
 }
 
 entity Films : cuid, managed {
