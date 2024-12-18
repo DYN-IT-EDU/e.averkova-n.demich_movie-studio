@@ -6,13 +6,10 @@ using {
 } from '@sap/cds/common';
 namespace sap.capire.moviestudio;
 
-entity Occupations : CodeList {
-  key code : String enum {
-    actor           = 'Actor';
-    director        = 'Director';
-    screenwriter    = 'Screenwriter';
-    cinematographer = 'Cinematographer';
-  };
+entity Roles : cuid, managed {
+  name : String @mandetory;
+  person : Association to Persons;
+  film : Association to Films;
 }
 
 entity Persons : cuid, managed {
@@ -20,18 +17,16 @@ entity Persons : cuid, managed {
   lastName    : String @mandatory;                                         // Фамилия
   name        : String = firstName ||' '|| lastName;
   dateOfBirth : Date;                                                      // Дата рождения
-  occupation  : Association to Occupations @mandatory @assert.range: true; // Роль в индустрии (актёр, режиссёр и т.д.)
+  occupation  : Association to Roles @mandatory @assert.range: true;       // Роль в индустрии (актёр, режиссёр и т.д.)
   directors   : Association to many Films on directors.director = $self;
   characters  : Association to many Characters on characters.person = $self;
   crew        : Association to many Crew on crew.person = $self;
   contracts   : Composition of many Contracts on contracts.person = $self;
 }
 
-entity Genres : CodeList {
-  key code : String enum {
-    comedy = 'Comedy';
-    drama  = 'Drama';
-  };
+entity Genres : cuid, managed{
+  name : String @mandatory;
+  film : Association to many Films on film.genre = $self;
 }
 
 entity Films : cuid, managed {
