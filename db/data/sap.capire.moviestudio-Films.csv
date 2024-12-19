@@ -1,0 +1,5 @@
+ID,title,description,realeaseDate,budget,boxOffice,duration,genre_ID,director_ID
+1,Inception,Action-packed sci-fi thriller,2010-07-16,160000000,836800000,148,1,1
+2,Titanic,A romantic drama set on the ill-fated RMS Titanic,1997-12-19,200000000,2187000000,195,2,2
+3,The Hangover,Hilarious adventure comedy,2009-06-05,35000000,467400000,100,3,3
+4,Se7en,Dark and gripping crime thriller,1995-09-22,33000000,327300000,127,4,4
