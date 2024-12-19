@@ -50,7 +50,7 @@ entity Persons : cuid {
   lastName    : String @mandatory;
   name        : String = firstName || ' ' || lastName;
   dateOfBirth : Date;
-  contact     : many {
+  contacts    : many {
     type        : String;
     description : String;
   };
@@ -153,6 +153,13 @@ entity FilmFinancials     as
     ) as profit
   }
 
+entity FilmsDirectors     as
+  projection on Films {
+    ID,
+    title,
+    director
+  }
+
 entity FilmsTotalExpenses as
   select from Films
   left join Expenses
@@ -162,6 +169,8 @@ entity FilmsTotalExpenses as
     title,
     sum(amount) as amount
   }
+  group by
+    Films.ID;
 
 entity ExpenseTypes : CodeList {
   key code : String enum {
