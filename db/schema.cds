@@ -38,7 +38,7 @@ entity Films : cuid, managed {
 }
 
 entity Finances : cuid, managed {
-  expensiveType : String;
+  expenseType : String;
   amount        : Decimal;
   date          : Date;
   description   : String;
@@ -173,14 +173,8 @@ entity FilmsTotalExpenses as
   group by
     Films.ID;
 
-type ExpenseTypes : Integer enum {
-  budget    = 1;
-  marketing = 2;
-}
-
 entity Expenses : cuid, managed {
   film        : Association to Films;
-  expenseType : ExpenseTypes @mandatory  @assert.range: true;
   amount      : Money;
   date        : Date;
   description : String;
