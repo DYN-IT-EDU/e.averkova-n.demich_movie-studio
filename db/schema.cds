@@ -166,13 +166,13 @@ entity FilmsTotalExpenses as
   left join Expenses
     on Films.ID = Expenses.film.ID
   {
-    Films.title,
     Films.ID,
+    title,
     sum(amount) as amount
   }
   group by
     Films.ID,
-    Films.title;
+    title;
 
 entity Expenses : cuid, managed {
   film        : Association to Films;
