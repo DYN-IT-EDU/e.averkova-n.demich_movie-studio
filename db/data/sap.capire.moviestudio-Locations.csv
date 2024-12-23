@@ -1,3 +1,3 @@
 ID,locationName,address_street,address_city,address_state,address_country_code
-1,Warner Studios,4000 Warner Blvd,Burbank,CA,US
-2,20th Century Fox Studios,10201 Pico Blvd,Los Angeles,CA,US
+LOCATION_UUID_1,Warner Studios,4000 Warner Blvd,Burbank,CA,US
+LOCATION_UUID_2,20th Century Fox Studios,10201 Pico Blvd,Los Angeles,CA,US

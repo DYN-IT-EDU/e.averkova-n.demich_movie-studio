@@ -21,7 +21,7 @@ entity Films : cuid, managed {
   budget       : Money;
   boxOffice    : Money;
   duration     : Integer;
-  genre        : Association to Genres  @mandatory  @assert.tsarget;
+  genre        : Association to Genres  @mandatory  @assert.target;
   finances     : Composition of many Finances
                    on finances.film = $self;
   schedules    : Composition of many Schedules
@@ -46,30 +46,30 @@ entity Finances : cuid, managed {
 }
 
 entity Persons : cuid {
-  firstName   : String @mandatory;
-  lastName    : String @mandatory;
-  name        : String = firstName || ' ' || lastName;
-  dateOfBirth : Date;
-  contacts    : many {
+  firstName      : String @mandatory;
+  lastName       : String @mandatory;
+  name           : String = firstName || ' ' || lastName;
+  dateOfBirth    : Date;
+  contacts       : many {
     type        : String;
     description : String;
   };
 
-  directors   : Association to many Films
-                  on directors.director = $self;
-  crew        : Association to many Crew
-                  on crew.person = $self;
-  roles       : Composition of many Roles
-                  on roles.person = $self;
-  contracts   : Composition of many Contracts
-                  on contracts.person = $self;
+  film_directors : Association to many Films
+                     on film_directors.director = $self;
+  film_crew      : Association to many Crew
+                     on film_crew.person = $self;
+  roles          : Association to many Roles
+                     on roles.person = $self;
+  contracts      : Association to many Contracts
+                     on contracts.person = $self;
 }
 
 entity Locations : cuid {
   locationName : String @mandatory;
   address      : Address;
 
-  schedules    : Composition of many Schedules
+  schedules    : Association to many Schedules
                    on schedules.location = $self;
 }
 
@@ -87,7 +87,7 @@ entity Roles : cuid, managed {
 }
 
 entity Crew : cuid {
-  schedule : Composition of Schedules
+  schedule : Association to Schedules
                on schedule.crew = $self;
   position : Association to Positions;
   film     : Association to Films;
@@ -117,7 +117,7 @@ entity Contracts : cuid, managed {
 entity Positions : cuid {
   positionName : String @mandatory;
   department   : Association to Departments;
-  crew         : Composition of many Crew
+  crew         : Association to many Crew
                    on crew.position = $self;
 }
 
@@ -153,11 +153,12 @@ entity FilmFinancials     as
     ) as profit
   }
 
-entity FilmsDirectors     as
+entity FilmsFinances      as
   projection on Films {
     ID,
     title,
-    director
+    budget,
+    boxOffice
   }
 
 entity FilmsTotalExpenses as
@@ -172,21 +173,17 @@ entity FilmsTotalExpenses as
   group by
     Films.ID;
 
-entity ExpenseTypes : CodeList {
-  key code : String enum {
-        budget    = 'Budget';
-        marketing = 'Marketing';
-      };
+type ExpenseTypes : Integer enum {
+  budget    = 1;
+  marketing = 2;
 }
 
 entity Expenses : cuid, managed {
   film        : Association to Films;
-  expenseType : Association to ExpenseTypes;
-
-  @mandatory  @assert.range: true
+  expenseType : ExpenseTypes @mandatory  @assert.range: true;
   amount      : Money;
   date        : Date;
   description : String;
 }
 
-type Money : Decimal(15, 2);
+type Money        : Decimal(15, 2);

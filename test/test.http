@@ -1,0 +1,31 @@
+@baseUrl = http://localhost:4004/odata/v4/movie-studio
+
+Get {{baseUrl}}/ShowHighBudgetFilms
+###
+
+POST {{baseUrl}}/ChangeFilmDirector
+Content-Type: application/json
+
+{
+    "filmID": "FILM_UUID_1",
+    "directorID" : "PERSON_UUID_1"
+}
+###
+
+POST {{baseUrl}}/ChangeFilmDirector
+Content-Type: application/json
+
+{
+    "filmID": "FILM_UUID_1",
+    "directorID" : "PERSON_UUID_2"
+}
+###
+
+POST {{baseUrl}}/ChangeFilmDirector
+Content-Type: application/json
+
+{
+    "filmID": "FILM_UUID_1",
+    "directorID" : "PERSON_UUID_100"
+}
+###

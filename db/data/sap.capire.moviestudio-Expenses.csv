@@ -1,5 +1,5 @@
 ID,film_ID,expenseType_code,amount,date,description
-1,1,budget,160000000,2010-06-01,Production Budget
-2,1,marketing,40000000,2010-06-15,Marketing Campaign
-3,2,budget,200000000,1997-11-01,Production Budget
-4,2,marketing,50000000,1997-11-15,Marketing Campaign
+EXPENCSE_UUID_1,FILM_UUID_1,budget,160000000,2010-06-01,Production Budget
+EXPENCSE_UUID_2,FILM_UUID_1,marketing,40000000,2010-06-15,Marketing Campaign
+EXPENCSE_UUID_3,FILM_UUID_2,budget,200000000,1997-11-01,Production Budget
+EXPENCSE_UUID_4,FILM_UUID_2,marketing,50000000,1997-11-15,Marketing Campaign
