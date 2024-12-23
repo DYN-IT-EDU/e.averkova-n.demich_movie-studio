@@ -15,11 +15,12 @@ service MovieStudio {
     entity Expenses           as projection on my.Expenses;
 
     @readonly
-    entity FilmsDirectors     as
+    entity FilmsFinances      as
         projection on Films {
             ID,
             title,
-            director
+            budget,
+            boxOffice
         }
 
     @readonly
@@ -34,4 +35,12 @@ service MovieStudio {
         }
         group by
             Films.ID;
+
+    // entity FilmTitle(filmID : String) as
+    //     select from my.Films
+    //     where Films.ID = :filmID;
+
+    function ShowHighBudgetFilms() returns array of Films;
+
+    action ChangeFilmDirector(filmID: my.Films:ID, directorID: my.Persons:ID) returns String;
 }

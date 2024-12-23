@@ -1,3 +1,3 @@
 ID,positionName,department_ID
-1,Director,1
-2,Producer,2
+POSITION_UUID_1,Director,DEPARTMENT_UUID_1
+POSITION_UUID_2,Producer,DEPARTMENT_UUID_2

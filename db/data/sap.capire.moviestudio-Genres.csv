@@ -1,5 +1,5 @@
 ID,name
-1,Action
-2,Drama
-3,Comedy
-4,Thriller
+GENRE_UUID_1,Action
+GENRE_UUID_2,Drama
+GENRE_UUID_3,Comedy
+GENRE_UUID_4,Thriller
