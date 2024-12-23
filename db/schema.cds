@@ -161,6 +161,18 @@ entity FilmsFinances      as
     boxOffice
   }
 
+entity FilmsTotalExpenses as
+  select from Films
+  left join Expenses
+    on Films.ID = Expenses.film.ID
+  {
+    Films.title,
+    Films.ID,
+    sum(amount) as amount
+  }
+  group by
+    Films.ID,
+    Films.title;
 
 entity Expenses : cuid, managed {
   film        : Association to Films;
