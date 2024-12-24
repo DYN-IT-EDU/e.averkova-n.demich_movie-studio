@@ -22,7 +22,10 @@ service FilmsService @(path: '/films') {
             director.name
         }
         group by
-            director.name;
+            director.name,
+            title,
+            genre.name,
+            description;
 
     entity FilmsByTitleView(title : String) as
         select from Films
