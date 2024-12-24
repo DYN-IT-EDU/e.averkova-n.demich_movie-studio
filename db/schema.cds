@@ -136,8 +136,8 @@ entity FilmOverview       as
     r.person.name,
     p.firstName,
     p.lastName
-  from Roles as r
-  left join Films as f
+  from Films as f
+  left join Roles as r
     on f.ID = r.film.ID
   left join Persons as p
     on p.ID = r.person.ID;
@@ -171,7 +171,8 @@ entity FilmsTotalExpenses as
     sum(amount) as amount
   }
   group by
-    Films.ID;
+    Films.ID,
+    title;
 
 entity Expenses : cuid, managed {
   film        : Association to Films;
