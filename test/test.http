@@ -29,3 +29,5 @@ Content-Type: application/json
     "directorID" : "PERSON_UUID_100"
 }
 ###
+
+GET {{baseUrl}}/FilmTitle(filmID='FILM_UUID_1')/Set
