@@ -2,9 +2,25 @@ const cds = require("@sap/cds");
 
 class MovieStudioService extends cds.ApplicationService {
   init() {
+    const { Films } = this.entities;
+    this.before("UPDATE", Films, this.beforeUpdateFilm);
+    this.after("READ", Films, this.afterReadFilms);
     this.on("ShowHighBudgetFilms", this.ShowHighBudgetFilms);
     this.on("ChangeFilmDirector", this.ChangeFilmDirector);
     return super.init();
+  }
+
+  async afterReadFilms(res) {
+    for (let r of res) {
+      if (r.budget >= 100000000) { r.title += ' -- High budget!'; }
+    }
+  }
+
+  async beforeUpdateFilm(req) {
+    const { director_ID } = req.data;
+    if (director_ID == "PERSON_UUID_3") {
+      req.reject("Banned director!");
+    }
   }
 
   async ShowHighBudgetFilms() {

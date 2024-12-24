@@ -31,3 +31,15 @@ Content-Type: application/json
 ###
 
 GET {{baseUrl}}/FilmTitle(filmID='FILM_UUID_1')/Set
+###
+
+Get {{baseUrl}}/Films
+###
+
+PATCH {{baseUrl}}/Films('FILM_UUID_1')
+Content-Type: application/json
+
+{  
+    "director_ID":"PERSON_UUID_3"
+}
+###
