@@ -1,8 +1,10 @@
 @baseUrl = http://localhost:4004/odata/v4/movie-studio
 
+### ------------------------------------------------------------------------
 Get {{baseUrl}}/ShowHighBudgetFilms
 ###
 
+### ------------------------------------------------------------------------
 POST {{baseUrl}}/ChangeFilmDirector
 Content-Type: application/json
 
@@ -12,6 +14,7 @@ Content-Type: application/json
 }
 ###
 
+### ------------------------------------------------------------------------
 POST {{baseUrl}}/ChangeFilmDirector
 Content-Type: application/json
 
@@ -21,6 +24,7 @@ Content-Type: application/json
 }
 ###
 
+### ------------------------------------------------------------------------
 POST {{baseUrl}}/ChangeFilmDirector
 Content-Type: application/json
 
@@ -30,12 +34,15 @@ Content-Type: application/json
 }
 ###
 
+### ------------------------------------------------------------------------
 GET {{baseUrl}}/FilmTitle(filmID='FILM_UUID_1')/Set
 ###
 
+### ------------------------------------------------------------------------
 Get {{baseUrl}}/Films
 ###
 
+### ------------------------------------------------------------------------
 PATCH {{baseUrl}}/Films('FILM_UUID_1')
 Content-Type: application/json
 
@@ -44,5 +51,36 @@ Content-Type: application/json
 }
 ###
 
+### ------------------------------------------------------------------------
 Get {{baseUrl}}/sleep()
+###
+
+### ------------------------------------------------------------------------
+GET {{baseUrl}}/films/FilmsByTitleView(title='Titanic')/Set
+###
+
+### ------------------------------------------------------------------------
+GET {{baseUrl}}/films/GetFilmsByDuration(duration=100)
+###
+
+### ------------------------------------------------------------------------
+GET {{baseUrl}}/schedules/GetSchedules
+###
+
+### ------------------------------------------------------------------------
+POST {{baseUrl}}/schedules/AddSchedule
+Content-Type: application/json
+
+{
+    "film": 1,
+    "crew": 1,
+    "location": 1,
+    "shoots": [
+        {
+            "startDate": "2000-05-01",
+            "endDate": "2000-05-02",
+            "description": "test"
+        }
+    ]
+}
 ###
