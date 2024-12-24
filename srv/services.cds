@@ -45,4 +45,6 @@ service MovieStudio {
     function ShowHighBudgetFilms() returns array of Films;
 
     action ChangeFilmDirector(filmID: my.Films:ID, directorID: my.Persons:ID) returns String;
+
+    function sleep() returns Boolean;
 }

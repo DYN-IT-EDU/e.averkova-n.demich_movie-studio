@@ -7,6 +7,17 @@ class MovieStudioService extends cds.ApplicationService {
     this.after("READ", Films, this.afterReadFilms);
     this.on("ShowHighBudgetFilms", this.ShowHighBudgetFilms);
     this.on("ChangeFilmDirector", this.ChangeFilmDirector);
+    this.on('sleep', async () => {
+      try {
+        let dbQuery = ' Call "sleep"( )'
+        let result = await cds.run(dbQuery, {})
+        cds.log().info(result)
+        return true
+      } catch (error) {
+        cds.log().error(error)
+        return false
+      }
+    });
     return super.init();
   }
 
@@ -33,7 +44,7 @@ class MovieStudioService extends cds.ApplicationService {
 
   async ChangeFilmDirector(filmID, directorID) {
     const { Persons, Films } = this.entities;
-    
+
     const director = await SELECT.one.from(Persons).where({ ID: directorID });
     if (!director) {
       return "FAILURE! Could not find director";
@@ -45,8 +56,8 @@ class MovieStudioService extends cds.ApplicationService {
     }
 
     await UPDATE(Films)
-        .set({ director_ID: directorID })
-        .where({ ID: filmID });
+      .set({ director_ID: directorID })
+      .where({ ID: filmID });
 
     return "SUCCESS";
   }
