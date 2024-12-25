@@ -29,9 +29,9 @@ service MovieStudio {
         left join Expenses
             on Films.ID = Expenses.film.ID
         {
-            Films.ID,
+            key Films.ID,
             title,
-            sum(amount) as amount
+            sum(amount) as amount : Decimal(15, 2)
         }
         group by
             Films.ID,

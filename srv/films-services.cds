@@ -3,6 +3,7 @@ using {sap.capire.moviestudio as m} from '../db/schema';
 service FilmsService @(path: '/films') {
     entity Films                            as
         projection on m.Films {
+            key ID,
             title,
             genre.name        as genreName,
             description,
@@ -16,12 +17,14 @@ service FilmsService @(path: '/films') {
     @readonly
     entity FilmsByDirector                  as
         select from m.Films {
+            key ID,
             title,
             genre.name as genreName,
             description,
             director.name
         }
         group by
+            ID,
             director.name,
             title,
             genre.name,

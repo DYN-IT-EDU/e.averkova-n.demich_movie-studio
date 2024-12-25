@@ -7,6 +7,7 @@ service GenresService @(path: '/genres') {
     @readonly
     entity GenreWithFilmDescription as
         projection on m.Genres {
+            key ID,
             name,
             films.title,
             films.description
@@ -18,14 +19,16 @@ service GenresService @(path: '/genres') {
         left join m.Films as f
             on f.genre.ID = g.ID
         {
+            key g.ID,
             g.name,
             count(
                 f.ID
-            ) as filmCount,
+            ) as filmCount : Integer,
             sum(
                 f.boxOffice
-            ) as totalFinances
+            ) as totalFinances : Decimal(15, 2)
         }
         group by
+            g.ID,
             g.name;
 }
