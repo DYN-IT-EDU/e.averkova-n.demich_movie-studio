@@ -55,6 +55,12 @@ Content-Type: application/json
 Get {{baseUrl}}/sleep()
 ###
 
+@baseUrl = http://localhost:4004
+
+### ------------------------------------------------------------------------
+Get {{baseUrl}}/films/sleep()
+###
+
 ### ------------------------------------------------------------------------
 GET {{baseUrl}}/films/FilmsByTitleView(title='Titanic')/Set
 ###
@@ -83,4 +89,10 @@ Content-Type: application/json
         }
     ]
 }
+###
+
+@baseUrl = https://e4224610trial-dev2-movie-studio-srv.cfapps.us10-001.hana.ondemand.com
+
+### ------------------------------------------------------------------------
+GET {{baseUrl}}/schedules/GetSchedules
 ###
