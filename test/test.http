@@ -1,4 +1,5 @@
-@baseUrl = http://localhost:4004/odata/v4/movie-studio
+//@baseUrl = http://localhost:4004/odata/v4/movie-studio
+@baseUrl = https://bf0599f7trial-dev-movie-studio-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/movie-studio
 
 ### ------------------------------------------------------------------------
 Get {{baseUrl}}/ShowHighBudgetFilms
