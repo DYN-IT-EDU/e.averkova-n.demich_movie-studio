@@ -11,6 +11,7 @@ build-parameters:
       commands:
         - npm ci
         - npx cds build --production
+        - mkdir -p resources
 modules:
   - name: movie-studio-srv
     type: nodejs
@@ -64,8 +65,22 @@ modules:
         parameters:
           content-target: true
     build-parameters:
-      build-result: app/
+      build-result: resources/
       requires:
+        - artifacts:
+            - HTML5Module-content.zip
+          name: HTML5Module
+          target-path: resources/
+
+  - name: HTML5Module
+    type: html5
+    path: app/HTML5Module
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+      build-result: .
 
 
   - name: movie-studio-destinations
