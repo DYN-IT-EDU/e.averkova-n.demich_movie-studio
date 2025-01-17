@@ -7,7 +7,7 @@
   "private": true,
   "dependencies": {
     "@cap-js/hana": "^1",
-    "@sap/cds": "^8.6.0",
+    "@sap/cds": "^8",
     "express": "^4",
     "@sap/xssec": "^4"
   },
@@ -24,14 +24,16 @@
       "native_hana_associations": false
     },
     "requires": {
-      "[development]": {},
+      "[production]": {
+        "db": "hana",
+        "auth": "xsuaa"
+      },
       "[hybrid]": {
         "db": "hana"
       },
-      "[production]": {
-        "db": "hana",
-        "auth": "mocked"
-      }
+      "destinations": true,
+      "html5-repo": true,
+      "workzone": true
     }
   }
 }

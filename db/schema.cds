@@ -21,7 +21,7 @@ entity Films : cuid, managed {
   budget       : Money;
   boxOffice    : Money;
   duration     : Integer;
-  genre        : Association to Genres  @mandatory  @assert.target;
+  genre        : Association to Genres @assert.target;
   finances     : Composition of many Finances
                    on finances.film = $self;
   schedules    : Composition of many Schedules
