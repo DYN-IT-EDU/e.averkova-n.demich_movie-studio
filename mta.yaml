@@ -26,6 +26,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: movie-studio-db
+      - name: movie-studio-auth
 
   - name: movie-studio-db-deployer
     type: hdb
@@ -35,9 +36,113 @@ modules:
     requires:
       - name: movie-studio-db
 
+  - name: movie-studio-app-deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: movie-studio-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources/
+      requires:
+        - name: HTML5Module
+          artifacts:
+            - HTML5Module-content.zip          
+          target-path: resources/
+
+  - name: HTML5Module
+    type: html5
+    path: app/HTML5Module
+    build-parameters:
+      builder: custom
+      commands:        
+        - npm run build
+      supported-platforms: []
+      build-result: .
+
+  - name: movie-studio-destinations
+    type: com.sap.application.content
+    requires:
+      - name: movie-studio-auth
+        parameters:
+          service-key:
+            name: movie-studio-auth-key
+      - name: movie-studio-html5-repo-host
+        parameters:
+          service-key:
+            name: movie-studio-html5-repo-host-key
+      - name: srv-api
+      - name: movie-studio-destination
+        parameters:
+          content-target: true
+    build-parameters:
+     no-source: true
+    parameters:
+      content:
+        instance:
+          existing_destinations_policy: update
+          destinations:
+            - Name: movie-studio-html5-repository
+              ServiceInstanceName: movie-studio-html5-repo-host
+              ServiceKeyName: movie-studio-html5-repo-host-key
+              sap.cloud.service: basic.service
+            - Name: movie-studio-auth
+              Authentication: OAuth2UserTokenExchange
+              ServiceInstanceName: movie-studio-auth
+              ServiceKeyName: movie-studio-auth-key
+              sap.cloud.service: basic.service 
+
 resources:
   - name: movie-studio-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
       service-plan: hdi-shared
+  
+  - name: movie-studio-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: movie-studio-${org}-${space}
+        tenant-mode: dedicated
+
+  - name: movie-studio-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            existing_destinations_policy: update
+            destinations:
+              - Name: movie-studio-app-srv
+                URL: ~{srv-api/srv-url}
+                Authentication: NoAuthentication
+                Type: HTTP
+                ProxyType: Internet
+                HTML5.ForwardAuthToken: true
+                HTML5.DynamicDestination: true              
+              - Name: ui5
+                URL: https://ui5.sap.com
+                Authentication: NoAuthentication
+                Type: HTTP
+                ProxyType: Internet        
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api 
+          url: ~{srv-url}
+          forwardAuthToken: true
+
+  - name: movie-studio-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host 
