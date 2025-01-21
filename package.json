@@ -17,7 +17,10 @@
     "@sap/cds-dk": "^8"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "deploy": "cf deploy gen/mta.tar",
+    "build": "cds build --production",                      
+    "watch": "cds watch --profile hybrid"
   },
   "cds": {
     "sql": {

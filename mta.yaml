@@ -26,6 +26,8 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: movie-studio-db
+      - name: my-destination-service
+      - name: my-upi-instance
 
   - name: movie-studio-db-deployer
     type: hdb
@@ -41,3 +43,15 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+
+  - name: my-destination-service
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service: destination
+      service-plan: lite
+      service-name: my-destination-service
+
+  - name: my-upi-instance
+    type: org.cloudfoundry.user-provided-service
+    parameters:
+      service-name: my-upi-instance

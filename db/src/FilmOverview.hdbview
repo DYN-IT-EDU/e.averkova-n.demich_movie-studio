@@ -1,0 +1,8 @@
+VIEW sap_capire_moviestudio_FilmOverview AS SELECT
+  f_0.ID,
+  f_0.title,
+  f_0.description,
+  person_3.firstName || ' ' || person_3.lastName AS name,
+  p_2.firstName,
+  p_2.lastName
+FROM (((sap_capire_moviestudio_Films AS f_0 LEFT JOIN sap_capire_moviestudio_Roles AS r_1 ON f_0.ID = r_1.film_ID) LEFT JOIN sap_capire_moviestudio_Persons AS p_2 ON p_2.ID = r_1.person_ID) LEFT JOIN sap_capire_moviestudio_Persons AS person_3 ON r_1.person_ID = person_3.ID)
