@@ -128,6 +128,7 @@ entity Departments : cuid {
                      on positions.department = $self;
 }
 
+@cds.persistence.skip
 entity FilmOverview       as
   select
     f.ID,

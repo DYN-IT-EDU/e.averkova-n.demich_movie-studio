@@ -6,8 +6,13 @@
     {
       "name": "uaa.user",
       "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Admin"
     }
   ],
+  "attributes": [],
   "role-templates": [
     {
       "name": "Token_Exchange",
@@ -15,9 +20,21 @@
       "scope-references": [
         "uaa.user"
       ]
+    },
+    {
+      "name": "Admin",
+      "description": "generated",
+      "scope-references": [
+          "$XSAPPNAME.Admin"
+      ],
+      "attribute-references": []
     }
   ],
   "oauth2-configuration": {
+    "credential-types": [
+        "binding-secret",
+        "x509"
+    ],
     "redirect-uris": [
       "https://*.hana.ondemand.com/**"
     ]

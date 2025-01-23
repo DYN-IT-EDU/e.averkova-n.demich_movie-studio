@@ -1,6 +1,7 @@
 using {sap.capire.moviestudio as m} from '../db/schema';
 
 service FilmsService @(path: '/films') {
+    @requires           : 'authenticated-user'
     entity Films                            as
         projection on m.Films {
             key ID,
@@ -14,7 +15,7 @@ service FilmsService @(path: '/films') {
             roles.person.name as actor
         }
 
-    @readonly
+    @requires: 'Admin'
     entity FilmsByDirector                  as
         select from m.Films {
             key ID,
