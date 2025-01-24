@@ -2,6 +2,30 @@
   "authenticationMethod": "route",
   "routes": [
     {
+      "source": "^/odata/v4/movie-studio/(.*)$",
+      "target": "/odata/v4/movie-studio/$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa"
+    }, 
+    {
+      "source": "^/schedules/(.*)$",
+      "target": "/schedules/$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa"
+    }, 
+    {
+      "source": "^/genres/(.*)$",
+      "target": "/genres/$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa"
+    }, 
+    {
+      "source": "^/films/(.*)$",
+      "target": "/films/$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa"
+    }, 
+    {
       "source": "^/app/(.*)$",
       "target": "$1",
       "localDir": ".",

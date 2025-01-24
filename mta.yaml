@@ -57,37 +57,30 @@ modules:
       - name: movie-studio-destination
       - name: movie-studio-html5-runtime
 
-  - name: movie-studio-destinations
+  - name: movie-studio-app-deployer
     type: com.sap.application.content
+    path: .
     requires:
-      - name: movie-studio-auth
-        parameters:
-          service-key:
-            name: movie-studio-auth-key
       - name: movie-studio-html5-repo-host
-        parameters:
-          service-key:
-            name: movie-studio-html5-repo-host-key
-      - name: srv-api
-      - name: movie-studio-destination
         parameters:
           content-target: true
     build-parameters:
-      no-source: true
-    parameters:
-      content:
-        instance:
-          existing_destinations_policy: update
-          destinations:
-            - Name: movie-studio-html5-repository
-              ServiceInstanceName: movie-studio-html5-repo-host
-              ServiceKeyName: movie-studio-html5-repo-host-key
-              sap.cloud.service: moviestudio.service
-            - Name: movie-studio-auth
-              Authentication: OAuth2UserTokenExchange
-              ServiceInstanceName: movie-studio-auth
-              ServiceKeyName: movie-studio-auth-key
-              sap.cloud.service: moviestudio.service
+      build-result: resources/
+      requires:
+        - artifacts:
+            - HTML5Module-content.zip
+          name: HTML5Module
+          target-path: resources/
+
+  - name: HTML5Module
+    type: html5
+    path: app/HTML5Module
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+      build-result: .
 
 resources:
   - name: movie-studio-db
