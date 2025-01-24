@@ -10,10 +10,27 @@
       {
         "source": "^/films/(.*)$",
         "target": "/films/$1",
-        "destination": "movie-studio-app-srv",
-        "authenticationType": "xsuaa",
-        "csrfProtection": true
-      },                 
+        "destination": "srv-api",
+        "authenticationType": "xsuaa"
+      },   
+      {
+        "source": "^/genres/(.*)$",
+        "target": "/genres/$1",
+        "destination": "srv-api",
+        "authenticationType": "xsuaa"
+      },
+      {
+        "source": "^/odata/v4/movie-studio/(.*)$",
+        "target": "/odata/v4/movie-studio/$1",
+        "destination": "srv-api",
+        "authenticationType": "xsuaa"
+      },
+      {
+        "source": "^/schedules/(.*)$",
+        "target": "/schedules/$1",
+        "destination": "srv-api",
+        "authenticationType": "xsuaa"
+      },              
       {
         "source": "^(.*)$",
         "target": "$1",
