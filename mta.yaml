@@ -72,7 +72,6 @@ modules:
         parameters:
           service-key:
             name: movie-studio-html5-repo-host-key
-      - name: srv-api
       - name: movie-studio-destination
         parameters:
           content-target: true
