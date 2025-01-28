@@ -2,9 +2,11 @@ using {sap.capire.moviestudio as m} from '../db/schema';
 
 service GenresService @(path: '/genres') {
     @readonly
+    @requires           : 'authenticated-user'
     entity Genres                   as projection on m.Genres;
 
     @readonly
+    @requires: 'genres-services.Viewer'
     entity GenreWithFilmDescription as
         projection on m.Genres {
             key ID,
@@ -13,7 +15,7 @@ service GenresService @(path: '/genres') {
             films.description
         }
 
-    @readonly
+    @requires: 'genres-services.Admin'
     entity GenreStatistics          as
         select from m.Genres as g
         left join m.Films as f

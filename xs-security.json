@@ -4,30 +4,73 @@
   "description": "Security profile of called application",
   "scopes": [
     {
-      "name": "uaa.user",
-      "description": "UAA"
+      "name": "$XSAPPNAME.films-services.Viewer",
+      "description": "Viewer for films-services"
     },
     {
-      "name": "$XSAPPNAME.Admin",
-      "description": "Admin"
+      "name": "$XSAPPNAME.films-services.Admin",
+      "description": "Admin for films-services"
+    },
+    {
+      "name": "$XSAPPNAME.schedules-services.Viewer",
+      "description": "Viewer for schedules-services"
+    },
+    {
+      "name": "$XSAPPNAME.schedules-services.Admin",
+      "description": "Admin for schedules-services"
+    },
+    {
+      "name": "$XSAPPNAME.genres-services.Viewer",
+      "description": "Viewer for services"
+    },
+    {
+      "name": "$XSAPPNAME.genres-services.Admin",
+      "description": "Admin for services"
     }
   ],
   "attributes": [],
   "role-templates": [
     {
-      "name": "Token_Exchange",
-      "description": "UAA",
+      "name": "films-services_Viewer",
+      "description": "Access to view data in films-services",
       "scope-references": [
-        "uaa.user"
+        "$XSAPPNAME.films-services.Viewer"
       ]
     },
     {
-      "name": "Admin",
-      "description": "generated",
+      "name": "films-services_Admin",
+      "description": "Access to manage films-services",
       "scope-references": [
-          "$XSAPPNAME.Admin"
-      ],
-      "attribute-references": []
+        "$XSAPPNAME.films-services.Admin"
+      ]
+    },
+    {
+      "name": "schedules-services_Viewer",
+      "description": "Access to view data in schedules-services",
+      "scope-references": [
+        "$XSAPPNAME.schedules-services.Viewer"
+      ]
+    },
+    {
+      "name": "schedules-services_Admin",
+      "description": "Access to manage schedules-services",
+      "scope-references": [
+        "$XSAPPNAME.schedules-services.Admin"
+      ]
+    },
+    {
+      "name": "genres-services_Viewer",
+      "description": "Access to view data in genres-services",
+      "scope-references": [
+        "$XSAPPNAME.genres-services.Viewer"
+      ]
+    },
+    {
+      "name": "genres-services_Admin",
+      "description": "Access to manage genres-services",
+      "scope-references": [
+        "$XSAPPNAME.genres-services.Admin"
+      ]
     }
   ],
   "oauth2-configuration": {
@@ -36,7 +79,9 @@
         "x509"
     ],
     "redirect-uris": [
-      "https://*.hana.ondemand.com/**"
+      "https://*.hana.ondemand.com/**",
+      "https://*.applicationstudio.cloud.sap/**",
+      "https://localhost:5000/**"
     ]
   }
 }

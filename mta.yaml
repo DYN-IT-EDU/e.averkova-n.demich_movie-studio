@@ -29,7 +29,6 @@ modules:
     requires:
       - name: movie-studio-db
       - name: movie-studio-auth
-      - name: movie-studio-destination
 
   - name: movie-studio-db-deployer
     type: hdb
@@ -54,7 +53,6 @@ modules:
           url: ~{srv-url}
           forwardAuthToken: true
       - name: movie-studio-auth
-      - name: movie-studio-destination
       - name: movie-studio-html5-runtime
 
   - name: movie-studio-app-deployer

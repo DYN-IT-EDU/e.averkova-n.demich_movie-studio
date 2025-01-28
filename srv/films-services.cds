@@ -15,7 +15,7 @@ service FilmsService @(path: '/films') {
             roles.person.name as actor
         }
 
-    @requires: 'Admin'
+    @requires: 'films-services.Admin'
     entity FilmsByDirector                  as
         select from m.Films {
             key ID,
@@ -31,11 +31,14 @@ service FilmsService @(path: '/films') {
             genre.name,
             description;
 
+    @requires: 'films-services.Viewer'
     entity FilmsByTitleView(title : String) as
         select from Films
         where Films.title = :title;
 
+    @requires: 'films-services.Viewer'
     function GetFilmsByDuration(duration : Integer) returns array of Films;
 
+    @requires: 'films-services.Viewer'
     function sleep() returns Boolean;
 }

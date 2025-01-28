@@ -1,9 +1,10 @@
 using {sap.capire.moviestudio as m} from '../db/schema';
 
 service SchedulesService @(path: '/schedules') {
-    @readonly
+    @requires           : 'authenticated-user'
     entity Schedules as projection on m.Schedules;
 
+    @requires: 'schedules-services.Admin'
     action   AddSchedule(crewID : Integer,
                          locationID : Integer,
                          shoots : {
@@ -12,5 +13,6 @@ service SchedulesService @(path: '/schedules') {
         description : String;
     })                      returns Schedules;
 
+    @requires: 'schedules-services.Viewer'
     function GetSchedules() returns array of Schedules;
 }
