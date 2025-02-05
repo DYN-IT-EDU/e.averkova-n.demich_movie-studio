@@ -5,32 +5,32 @@ annotate service.Films with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Label : 'title',
+                Label : '{i18n>Title}',
                 Value : title,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'genreName',
+                Label : '{i18n>Genrename}',
                 Value : genreName,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'description',
+                Label : '{i18n>Description1}',
                 Value : description,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'realeaseDate',
+                Label : '{i18n>Realeasedate}',
                 Value : realeaseDate,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'budget',
+                Label : '{i18n>Budget}',
                 Value : budget
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'duration',
+                Label : '{i18n>Duration}',
                 Value : duration,
             }
         ],
@@ -39,10 +39,40 @@ annotate service.Films with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'GeneratedFacet1',
-            Label : 'General Information',
+            Label : '{i18n>GeneralInformation}',
             Target : '@UI.FieldGroup#GeneratedGroup',
-        },
+        }
     ],
+    UI.LineItem #GeneratedGroupSchedules : {
+        $value : [
+            {
+                $Type : 'UI.DataField',
+                Label : '{i18n>Title}',
+                Value : title,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : genreName,
+                Label : '{i18n>Genrename}',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : duration,
+                Label : '{i18n>Duration}',
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : '{i18n>Realeasedate}',
+                Value : realeaseDate,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : filmStatus_code,
+                Criticality : filmStatus.criticality,
+                Label : '{i18n>Statuscode}'
+            }
+        ],
+    },
     UI.LineItem : {
         $value : [
             {
@@ -57,11 +87,6 @@ annotate service.Films with @(
             },
             {
                 $Type : 'UI.DataField',
-                Label : '{i18n>Description1}',
-                Value : description,
-            },
-            {
-                $Type : 'UI.DataField',
                 Value : duration,
                 Label : '{i18n>Duration}',
             },
@@ -69,11 +94,6 @@ annotate service.Films with @(
                 $Type : 'UI.DataField',
                 Label : '{i18n>Realeasedate}',
                 Value : realeaseDate,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value: budget,
-                Label : '{i18n>Budget}'
             },
             {
                 $Type : 'UI.DataField',
@@ -87,6 +107,18 @@ annotate service.Films with @(
         realeaseDate,
         genreName,
     ],
+    UI.HeaderInfo : {
+        TypeName : '{i18n>Film}',
+        TypeNamePlural : '{i18n>Films}',
+        Title : {
+            $Type : 'UI.DataField',
+            Value : title,
+        },
+        Description   : {
+            $Type: 'UI.DataField',
+            Value: description,
+        }
+    },
 );
 
 annotate service.Films with {
@@ -106,7 +138,7 @@ annotate service.Films with {
         Common.ValueListWithFixedValues : true,
     );
     realeaseDate @(
-        Common.Label : '{i18n>ReleaseDate}',
+        Common.Label : '{i18n>Realeasedate}',
     );
 };
 

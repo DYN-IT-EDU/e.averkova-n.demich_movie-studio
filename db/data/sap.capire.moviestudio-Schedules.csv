@@ -1,3 +1,3 @@
 ID,shoots,location_ID,film_ID
-SCHEDULE_UUID_1,"[{""startDate"": ""2010-01-10"",""endDate"": ""2010-03-15"",""description"": ""Main shooting schedule""}]",LOCATION_UUID_1,FILM_UUID_1
-SCHEDULE_UUID_2,"[{""startDate"": ""1996-05-01"",""endDate"": ""1996-07-30"",""description"": ""Primary production schedule""}]",LOCATION_UUID_2,FILM_UUID_2
+b1eb7201-4759-4444-9797-90f7d566f43d,"[{""startDate"": ""2010-01-10"",""endDate"": ""2010-03-15"",""description"": ""Main shooting schedule""}]",87c3995f-d680-4f43-9e93-dfd1d01b08bc,d0738d33-3f0d-4cc1-bf16-2aca217ac4ca
+81d3b75d-25f1-4511-99b0-5abda65cd6e6,"[{""startDate"": ""1996-05-01"",""endDate"": ""1996-07-30"",""description"": ""Primary production schedule""}]",8b0cf46c-8cbc-4a29-b7ed-168ba929a3b4,e1d8786b-dafb-4839-a211-5ad034989bad

@@ -1,5 +1,5 @@
 ID,title,description,realeaseDate,budget,boxOffice,duration,filmStatus_code,genre_ID,director_ID
-FILM_UUID_1,Inception,Action-packed sci-fi thriller,2010-07-16,160000000,836800000,148,R,GENRE_UUID_1,PERSON_UUID_1
-FILM_UUID_2,Titanic,A romantic drama set on the ill-fated RMS Titanic,1997-12-19,200000000,2187000000,195,S,GENRE_UUID_2,PERSON_UUID_2
-FILM_UUID_3,The Hangover,Hilarious adventure comedy,2009-06-05,35000000,467400000,100,C,GENRE_UUID_3,PERSON_UUID_3
-FILM_UUID_4,Se7en,Dark and gripping crime thriller,1995-09-22,33000000,327300000,127,R,GENRE_UUID_4,PERSON_UUID_4
+d0738d33-3f0d-4cc1-bf16-2aca217ac4ca,Inception,Action-packed sci-fi thriller,2010-07-16,160000000,836800000,148,R,bca992db-3a79-4d11-8ffe-ab9a9f9d8e74,1581ec84-8937-4a4e-b8fe-4065fd9e21b4
+e1d8786b-dafb-4839-a211-5ad034989bad,Titanic,A romantic drama set on the ill-fated RMS Titanic,1997-12-19,200000000,2187000000,195,S,1dd143a0-7f85-4ce5-9a4f-84d09ecfa829,ee2f35bb-31d3-4848-bdda-7d37e506f75c
+a8f52759-4ec5-4b10-bf24-8a2ef2bbe882,The Hangover,Hilarious adventure comedy,2009-06-05,35000000,467400000,100,C,593cbf5a-2211-4381-a30c-ee9eeb066ccb,62dd36db-0481-4ae7-8c19-3440c310f62c
+5b70950c-0558-4c9b-8030-d48c4a6a0549,Se7en,Dark and gripping crime thriller,1995-09-22,33000000,327300000,127,R,fcb0ca14-6040-43e5-8e65-e83f99ec5d1a,e1f18625-0270-4038-afe5-91247c5f91ed

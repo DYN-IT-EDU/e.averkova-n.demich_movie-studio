@@ -69,8 +69,8 @@
         "settings": {
           "bundleName": "sap.capire.moviestudio.films.i18n.i18n",
           "supportedLocales": [
-              "en",
-              "ru"
+            "en",
+            "ru"
           ],
           "fallbackLocale": "ru"
         }
@@ -97,6 +97,11 @@
           "target": [
             "FilmsList"
           ]
+        },
+        {
+          "name": "FilmsObjectPage",
+          "pattern": "Films({FilmsKey}):?query:",
+          "target": "FilmsObjectPage"
         }
       ],
       "targets": {
@@ -106,10 +111,15 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "entitySet": "Films",
               "contextPath": "/Films",
               "variantManagement": "Page",
-              "navigation": {},
+              "navigation": {
+                "Films": {
+                  "detail": {
+                    "route": "FilmsObjectPage"
+                  }
+                }
+              },
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
@@ -117,6 +127,17 @@
                   }
                 }
               }
+            }
+          }
+        },
+        "FilmsObjectPage": {
+          "type": "Component",
+          "id": "FilmsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/Films"
             }
           }
         }
