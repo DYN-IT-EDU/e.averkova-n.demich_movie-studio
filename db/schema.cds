@@ -21,6 +21,7 @@ entity Films : cuid, managed {
   budget       : Money;
   boxOffice    : Money;
   duration     : Integer;
+  filmStatus   : Association to FilmStatus;
   genre        : Association to Genres @assert.target;
   finances     : Composition of many Finances
                    on finances.film = $self;
@@ -183,3 +184,23 @@ entity Expenses : cuid, managed {
 }
 
 type Money        : Decimal(15, 2);
+
+annotate Films with @(
+  Capabilities: {
+    FilterRestrictions : {
+      FilterExpressionRestrictions : [{
+        Property : 'realeaseDate',
+        AllowedExpressions : 'SingleRange'
+      }]
+    }
+  }
+);
+
+entity FilmStatus : CodeList {
+  key code : String enum {
+    Rent     = 'R';
+    Shoot    = 'S';
+    Canceled = 'C';
+  } default 'S'; 
+  criticality : Integer; 
+}

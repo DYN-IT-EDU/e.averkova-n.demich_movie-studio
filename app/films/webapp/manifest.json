@@ -1,0 +1,130 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "sap.capire.moviestudio.films",
+    "type": "application",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "i18n": {
+      "bundleName": "sap.capire.moviestudio.films.i18n.i18n",
+      "supportedLocales": [
+        "en",
+        "ru"
+      ],
+      "fallbackLocale": "ru"
+    },
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.16.2",
+      "toolsId": "28f70b18-4686-4af1-923f-badc5746b385"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/films/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.132.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sap.capire.moviestudio.films.i18n.i18n",
+          "supportedLocales": [
+              "en",
+              "ru"
+          ],
+          "fallbackLocale": "ru"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "FilmsList",
+          "target": [
+            "FilmsList"
+          ]
+        }
+      ],
+      "targets": {
+        "FilmsList": {
+          "type": "Component",
+          "id": "FilmsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "Films",
+              "contextPath": "/Films",
+              "variantManagement": "Page",
+              "navigation": {},
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

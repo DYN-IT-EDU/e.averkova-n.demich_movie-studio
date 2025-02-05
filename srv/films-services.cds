@@ -12,7 +12,9 @@ service FilmsService @(path: '/films') {
             budget,
             boxOffice,
             duration,
-            roles.person.name as actor
+            filmStatus.name as filmStatusName,
+            filmStatus,
+            roles.person.name as actor,
         }
 
     @requires: 'films-services.Admin'
