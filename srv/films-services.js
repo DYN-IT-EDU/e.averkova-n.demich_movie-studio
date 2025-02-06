@@ -4,6 +4,18 @@ module.exports = class SchedulesServise extends cds.ApplicationService {
     init() {
         const { Films } = this.entities;
 
+        this.on('SchedulePremiere', async (req) => {
+            const currentDate = new Date();
+            const premiereDate = new Date();
+            premiereDate.setMonth(currentDate.getMonth() + 1);
+
+            await UPDATE(Films)
+                .set({ realeaseDate: premiereDate })
+                .where({ filmStatus_code: 'S' });
+
+            return SELECT.from(Films);
+        });
+
         this.before('GetFilmsByDuration', Films, async (req) => {
             const { duration } = req.data;
             if (duration < 0) req.error`${{ duration }} must be >= ${0}`;

@@ -32,7 +32,7 @@ annotate service.Films with @(
                 $Type : 'UI.DataField',
                 Label : '{i18n>Duration}',
                 Value : duration,
-            }
+            },
         ],
     },
     UI.Facets : [
@@ -100,7 +100,12 @@ annotate service.Films with @(
                 Value : filmStatus_code,
                 Criticality : filmStatus.criticality,
                 Label : '{i18n>Statuscode}'
-            }
+            },
+            {
+                $Type : 'UI.DataFieldForAction',
+                Action : 'FilmsService.EntityContainer/SchedulePremiere',
+                Label : '{i18n>Schedulepremiere}',
+            },
         ],
     },
     UI.SelectionFields : [
