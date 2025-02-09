@@ -2,6 +2,17 @@ _schema-version: 3.3.0
 ID: movie-studio
 description: A simple CAP project.
 version: 1.0.0
+parameters:
+  enable-parallel-deployments: true
+  deploy_mode: html5-repo
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production
+    - mkdir -p resources
+
 modules:
 - name: movie-studio-srv
   type: nodejs
@@ -61,24 +72,10 @@ modules:
   build-parameters:
     build-result: resources/
     requires:
-    - artifacts:
-      - HTML5Module-content.zip
-      name: HTML5Module
-      target-path: resources/
-    - artifacts:
-      - sapcapiremoviestudiofilms.zip
-      name: sapcapiremoviestudiofilms
-      target-path: resources//
-
-- name: HTML5Module
-  type: html5
-  path: app/HTML5Module
-  build-parameters:
-    build-result: .
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
+      - artifacts:
+          - sapcapiremoviestudiofilms.zip
+        name: sapcapiremoviestudiofilms
+        target-path: resources/
 
 - name: sapcapiremoviestudiofilms
   type: html5
@@ -88,7 +85,7 @@ modules:
     builder: custom
     commands:
     - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
 
 resources:
@@ -119,7 +116,7 @@ resources:
   parameters:
     service: html5-apps-repo
     service-plan: app-runtime
-    
+
 - name: movie-studio-destination-service
   type: org.cloudfoundry.managed-service
   parameters:
@@ -138,14 +135,3 @@ resources:
     service: destination
     service-name: movie-studio-destination-service
     service-plan: lite
-    
-parameters:
-  deploy_mode: html5-repo
-  enable-parallel-deployments: true
-build-parameters:
-  before-all:
-  - builder: custom
-    commands:
-    - npm ci
-    - npx cds build --production
-    - mkdir -p resources

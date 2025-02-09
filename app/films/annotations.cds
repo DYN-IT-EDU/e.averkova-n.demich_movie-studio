@@ -103,8 +103,8 @@ annotate service.Films with @(
             },
             {
                 $Type : 'UI.DataFieldForAction',
-                Action : 'FilmsService.EntityContainer/SchedulePremiere',
-                Label : '{i18n>Schedulepremiere}',
+                Action : 'FilmsService.SchedulePremiere',
+                Label : '{i18n>Schedulepremiere}'
             },
         ],
     },

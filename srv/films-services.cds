@@ -15,7 +15,10 @@ service FilmsService @(path: '/films') {
             filmStatus.name as filmStatusName,
             filmStatus,
             roles.person.name as actor,
-        }
+        } actions {
+            @(Common.SideEffects: {TargetProperties: ['in/realeaseDate', ]})
+            action SchedulePremiere() returns Films;
+        };
 
     @requires: 'films-services.Admin'
     entity FilmsByDirector                  as
@@ -40,9 +43,6 @@ service FilmsService @(path: '/films') {
 
     @requires: 'films-services.Viewer'
     function GetFilmsByDuration(duration : Integer) returns array of Films;
-
-    @requires: 'films-services.Admin'
-    action SchedulePremiere() returns Films;
 
     @requires: 'films-services.Viewer'
     function sleep() returns Boolean;
