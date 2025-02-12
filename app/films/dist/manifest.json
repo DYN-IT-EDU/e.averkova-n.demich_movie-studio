@@ -24,7 +24,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/films/",
+        "uri": "films/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -125,7 +125,9 @@
           "options": {
             "settings": {
               "contextPath": "/Films",
-              "variantManagement": "Page",
+              "enhanceI18n": "i18n/custom.properties",
+              "initialLoad": "Enabled",
+              "variantManagement": "None",
               "navigation": {
                 "Films": {
                   "detail": {
@@ -160,5 +162,9 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+       "service": "moviestudio.service"
   }
 }

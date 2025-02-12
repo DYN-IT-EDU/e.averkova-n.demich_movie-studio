@@ -14,124 +14,165 @@ build-parameters:
     - mkdir -p resources
 
 modules:
-- name: movie-studio-srv
-  type: nodejs
-  path: gen/srv
-  requires:
-  - name: movie-studio-db
-  - name: movie-studio-auth
-  provides:
-  - name: srv-api
-    properties:
-      srv-url: ${default-url}
-  parameters:
-    buildpack: nodejs_buildpack
-    readiness-health-check-http-endpoint: /health
-    readiness-health-check-type: http
-  build-parameters:
-    builder: npm
-
-- name: movie-studio-db-deployer
-  type: hdb
-  path: gen/db
-  requires:
-  - name: movie-studio-db
-  parameters:
-    buildpack: nodejs_buildpack
-
-- name: movie-studio
-  type: approuter.nodejs
-  path: app/router
-  requires:
-  - name: srv-api
-    group: destinations
-    properties:
-      forwardAuthToken: true
-      name: srv-api
-      url: ~{srv-url}
-  - name: movie-studio-auth
-  - name: movie-studio-html5-runtime
-  - name: movie-studio-destination-service
-    group: destinations
-    properties:
-      forwardAuthToken: false
-      name: ui5
-      url: https://ui5.sap.com
-  parameters:
-    disk-quota: 256M
-    keep-existing-routes: true
-    memory: 256M
-
-- name: movie-studio-app-deployer
-  type: com.sap.application.content
-  path: .
-  requires:
-  - name: movie-studio-html5-repo-host
+  - name: movie-studio-srv
+    type: nodejs
+    path: gen/srv
     parameters:
-      content-target: true
-  build-parameters:
-    build-result: resources/
+      buildpack: nodejs_buildpack
+      readiness-health-check-http-endpoint: /health
+      readiness-health-check-type: http
+    build-parameters:
+      builder: npm
+    provides:
+    - name: srv-api
+      properties:
+        srv-url: ${default-url}
     requires:
-      - artifacts:
-          - sapcapiremoviestudiofilms.zip
-        name: sapcapiremoviestudiofilms
-        target-path: resources/
+    - name: movie-studio-db
+    - name: movie-studio-auth
+    - name: movie-studio-destination
 
-- name: sapcapiremoviestudiofilms
-  type: html5
-  path: app/films
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build
-    supported-platforms: []
+  - name: movie-studio-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+    - name: movie-studio-db
+
+  - name: movie-studio
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      disk-quota: 256M
+      keep-existing-routes: true
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: srv-api
+          url: ~{srv-url}
+      - name: movie-studio-auth
+      - name: movie-studio-html5-runtime
+      - name: movie-studio-destination
+
+  - name: movie-studio-app-deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: movie-studio-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources/
+      requires:
+        - name: sapcapiremoviestudiofilms
+          artifacts: 
+            - sapcapiremoviestudiofilms.zip
+          target-path: resources/
+
+  - name: sapcapiremoviestudiofilms
+    type: html5
+    path: app/films
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+      - npm ci
+      - npm run build
+      supported-platforms: []
+
+  - name: movie-studio-destinations
+    type: com.sap.application.content
+    requires:
+      - name: movie-studio-auth
+        parameters:
+          service-key:
+            name: movie-studio-auth-key
+      - name: movie-studio-html5-repo-host
+        parameters:
+          service-key:
+            name: movie-studio-html5-repo-host-key
+      - name: srv-api
+      - name: movie-studio-destination
+        parameters:
+            content-target: true
+    build-parameters:
+      no-source: true
+    parameters:
+      content:
+        instance:
+          existing_destinations_policy: update
+          destinations:
+            - Name: movie-studio-html5-repository
+              ServiceInstanceName: movie-studio-html5-repo-host
+              ServiceKeyName: movie-studio-html5-repo-host-key
+              sap.cloud.service: moviestudio.service
+            - Name: movie-studio-auth
+              Authentication: OAuth2UserTokenExchange
+              ServiceInstanceName: movie-studio-auth
+              ServiceKeyName: movie-studio-auth-key
+              sap.cloud.service: moviestudio.service
 
 resources:
-- name: movie-studio-db
-  type: com.sap.xs.hdi-container
-  parameters:
-    service: hana
-    service-plan: hdi-shared
+  - name: movie-studio-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
 
-- name: movie-studio-auth
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      tenant-mode: dedicated
-      xsappname: movie-studio-${org}-${space}
-    path: ./xs-security.json
-    service: xsuaa
-    service-plan: application
+  - name: movie-studio-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        tenant-mode: dedicated
+        xsappname: movie-studio-${org}-${space}
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
 
-- name: movie-studio-html5-repo-host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-plan: app-host
+  - name: movie-studio-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
 
-- name: movie-studio-html5-runtime
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-plan: app-runtime
+  - name: movie-studio-html5-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
 
-- name: movie-studio-destination-service
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      HTML5Runtime_enabled: false
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
-      version: 1.0.0
-    service: destination
-    service-name: movie-studio-destination-service
-    service-plan: lite
+  - name: movie-studio-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            existing_destinations_policy: update
+            destinations:
+              - Name: movie-studio-app-srv
+                URL: ~{srv-api/srv-url}
+                Authentication: NoAuthentication
+                Type: HTTP
+                ProxyType: Internet
+                HTML5.ForwardAuthToken: true
+                HTML5.DynamicDestination: true    
+              - Name: ui5
+                Authentication: NoAuthentication
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+    requires:
+        - name: srv-api
+          group: destinations
+          properties:
+            name: movie-studio-app-srv
+            url: ~{srv-url}
+            forwardAuthToken: true
+    
