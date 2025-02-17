@@ -1,12 +1,16 @@
 using {sap.capire.moviestudio as m} from '../db/schema';
 
 service FilmsService @(path: '/films') {
+    entity Genres as projection on m.Genres;
+
     @requires           : 'authenticated-user'
+    @cds.redirection.target
     entity Films                            as
         projection on m.Films {
             key ID,
             title,
-            genre.name        as genreName,
+            genre,
+            genre.name as genreName,
             description,
             realeaseDate,
             budget,

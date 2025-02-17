@@ -10,11 +10,6 @@ annotate service.Films with @(
             },
             {
                 $Type : 'UI.DataField',
-                Label : '{i18n>Genrename}',
-                Value : genreName,
-            },
-            {
-                $Type : 'UI.DataField',
                 Label : '{i18n>Description1}',
                 Value : description,
             },
@@ -33,6 +28,11 @@ annotate service.Films with @(
                 Label : '{i18n>Duration}',
                 Value : duration,
             },
+            {
+                $Type : 'UI.DataField',
+                Value : genre_ID,
+                Label : '{i18n>Genrename}',
+            },
         ],
     },
     UI.Facets : [
@@ -49,11 +49,6 @@ annotate service.Films with @(
                 $Type : 'UI.DataField',
                 Label : '{i18n>Title}',
                 Value : title,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : genreName,
-                Label : '{i18n>Genrename}',
             },
             {
                 $Type : 'UI.DataField',
@@ -82,11 +77,6 @@ annotate service.Films with @(
             },
             {
                 $Type : 'UI.DataField',
-                Value : genreName,
-                Label : '{i18n>Genrename}',
-            },
-            {
-                $Type : 'UI.DataField',
                 Value : duration,
                 Label : '{i18n>Duration}',
             },
@@ -106,11 +96,16 @@ annotate service.Films with @(
                 Action : 'FilmsService.SchedulePremiere',
                 Label : '{i18n>Schedulepremiere}'
             },
+            {
+                $Type : 'UI.DataField',
+                Value : genreName,
+                Label : '{i18n>Genrename}',
+            },
         ],
     },
     UI.SelectionFields : [
         realeaseDate,
-        genreName,
+        genre.name,
     ],
     UI.HeaderInfo : {
         TypeName : '{i18n>Film}',
@@ -127,24 +122,55 @@ annotate service.Films with @(
 );
 
 annotate service.Films with {
-    genreName @(
-        Common.Label : '{i18n>Genrename}',
-        Common.ValueList : {
-            $Type : 'Common.ValueListType',
-            CollectionPath : 'Films',
-            Parameters : [
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : genreName,
-                    ValueListProperty : 'genreName',
-                },
-            ],
-        },
-        Common.ValueListWithFixedValues : true,
-    );
     realeaseDate @(
         Common.Label : '{i18n>Realeasedate}',
     );
 };
 
 annotate service.Films with @odata.draft.enabled;
+
+annotate service.Genres with {
+    name @(
+        Common.Label : '{i18n>Genrename}',
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Genres',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : name,
+                    ValueListProperty : 'name',
+                }
+            ],
+        },
+        Common.ValueListWithFixedValues : true,
+    );
+};
+
+annotate service.Films with {
+    genre @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Genres',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : genre_ID,
+                    ValueListProperty : 'ID',
+                },
+                {
+                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'name'
+                }
+            ],
+        },
+        Common.ValueListWithFixedValues : true,
+        Common.Text : {
+            $value : genreName,
+            ![@UI.TextArrangement] : #TextOnly
+        },
+)};
+
+annotate service.Genres with {
+    ID @Common.Text : name
+};
+
