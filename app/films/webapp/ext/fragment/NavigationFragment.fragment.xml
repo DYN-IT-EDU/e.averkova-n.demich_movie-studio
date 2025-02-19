@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Button 
+		id="idSampleTextNavigationButton"
+		core:require="{ handler: 'sap/capire/moviestudio/films/ext/fragment/NavigationFragment'}" 
+		text="***" 
+		press="handler.onPress" />
+</core:FragmentDefinition>

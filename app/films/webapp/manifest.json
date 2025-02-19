@@ -115,6 +115,11 @@
           "name": "FilmsObjectPage",
           "pattern": "Films({FilmsKey}):?query:",
           "target": "FilmsObjectPage"
+        },
+        {
+          "name": "GenreObjectPage",
+          "pattern": "Genres({GenreKey}):?query:",
+          "target": "GenreObjectPage"
         }
       ],
       "targets": {
@@ -128,17 +133,20 @@
               "enhanceI18n": "i18n/custom.properties",
               "initialLoad": "Enabled",
               "variantManagement": "None",
-              "navigation": {
-                "Films": {
-                  "detail": {
-                    "route": "FilmsObjectPage"
-                  }
-                }
-              },
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable"
+                  },
+                  "columns": {
+                    "NavigationFragment": {
+                      "header": "{i18n>navigationheader}",
+                      "position": {
+                        "anchor": "DataField::genre::name",
+                        "placement": "After"
+                      },
+                      "template": "sap.capire.moviestudio.films.ext.fragment.NavigationFragment"
+                    }
                   }
                 }
               }
@@ -151,8 +159,17 @@
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
-              "navigation": {},
               "contextPath": "/Films"
+            }
+          }
+        },
+        "GenreObjectPage": {
+          "type": "Component",
+          "id": "GenreObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/Genres"
             }
           }
         }

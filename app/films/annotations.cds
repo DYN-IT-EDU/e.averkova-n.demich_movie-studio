@@ -98,9 +98,9 @@ annotate service.Films with @(
             },
             {
                 $Type : 'UI.DataField',
-                Value : genreName,
+                Value : genre.name,
                 Label : '{i18n>Genrename}',
-            },
+            }
         ],
     },
     UI.SelectionFields : [
@@ -173,4 +173,15 @@ annotate service.Films with {
 annotate service.Genres with {
     ID @Common.Text : name
 };
+
+annotate service.Genres with @(
+    UI.HeaderInfo : {
+        Title : {
+            $Type : 'UI.DataField',
+            Value : name,
+        },
+        TypeName : '',
+        TypeNamePlural : '',
+    }
+);
 
