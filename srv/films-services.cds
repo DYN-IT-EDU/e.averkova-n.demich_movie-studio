@@ -2,7 +2,8 @@ using {sap.capire.moviestudio as m} from '../db/schema';
 
 service FilmsService @(path: '/films') {
     entity Genres as projection on m.Genres;
-
+    entity FilmsAggregate as projection on m.FilmsAggregate;
+    
     @requires           : 'authenticated-user'
     @cds.redirection.target
     entity Films                            as

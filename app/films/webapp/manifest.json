@@ -112,6 +112,11 @@
           ]
         },
         {
+          "pattern": "FilmsAggregate:?query:",
+          "name": "FilmsAggregateList",
+          "target": "FilmsAggregateList"
+        },
+        {
           "name": "FilmsObjectPage",
           "pattern": "Films({FilmsKey}):?query:",
           "target": "FilmsObjectPage"
@@ -153,6 +158,25 @@
             }
           }
         },
+        "FilmsAggregateList": {
+          "type": "Component",
+          "id": "FilmsAggregateList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "FilmsAggregate",
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "AnalyticalTable"
+                  }
+                }
+              },
+              "variantManagement": "None",
+              "initialLoad": "Enabled"
+            }
+          }
+        },
         "FilmsObjectPage": {
           "type": "Component",
           "id": "FilmsObjectPage",
@@ -182,6 +206,6 @@
   },
   "sap.cloud": {
     "public": true,
-       "service": "moviestudio.service"
+    "service": "moviestudio.service"
   }
 }

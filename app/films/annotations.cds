@@ -99,7 +99,7 @@ annotate service.Films with @(
             {
                 $Type : 'UI.DataField',
                 Value : genre.name,
-                Label : '{i18n>Genrename}',
+                Label : '{i18n>Genrename}'
             }
         ],
     },
@@ -118,8 +118,68 @@ annotate service.Films with @(
             $Type: 'UI.DataField',
             Value: description,
         }
-    },
+    }
 );
+
+annotate service.FilmsAggregate with @(
+  Aggregation.ApplySupported: {
+    GroupableProperties: [
+      genreName,
+      title
+    ]
+  },
+  Aggregation.CustomAggregate #budget: 'Edm.Int32',
+  Aggregation.CustomAggregate #boxOffice: 'Edm.Int32',
+  Aggregation.CustomAggregate #duration: 'Edm.Int32',
+  UI.LineItem : [
+        {
+            $Type : 'UI.DataField',
+            Value : title,
+            Label : 'title',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : genreName,
+            Label : 'genreName',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : budget,
+            Label : 'budget',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : boxOffice,
+            Label : 'boxOffice',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : duration,
+            Label : 'duration',
+        },
+  ],
+  UI.PresentationVariant : {
+    GroupBy : [
+        genreName
+    ]
+  },
+  UI: {
+          PresentationVariant: {
+            Total: [
+              budget,
+              duration,
+              boxOffice
+            ],
+            Visualizations: [
+              '@UI.LineItem'
+            ]
+          }
+  }
+){
+  budget @Analytics.Measure @Aggregation.default: #SUM;
+  boxOffice @Analytics.Measure @Aggregation.default: #SUM;
+  duration @Analytics.Measure @Aggregation.default: #SUM;
+}
 
 annotate service.Films with {
     realeaseDate @(
@@ -167,7 +227,7 @@ annotate service.Films with {
         Common.Text : {
             $value : genreName,
             ![@UI.TextArrangement] : #TextOnly
-        },
+        }
 )};
 
 annotate service.Genres with {
@@ -184,4 +244,7 @@ annotate service.Genres with @(
         TypeNamePlural : '',
     }
 );
+annotate service.FilmsAggregate with {
+    genreName @Common.Label : 'genreName'
+};
 

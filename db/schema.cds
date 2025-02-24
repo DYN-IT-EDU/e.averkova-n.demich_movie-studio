@@ -38,6 +38,15 @@ entity Films : cuid, managed {
                    on expenses.film = $self;
 }
 
+entity FilmsAggregate as projection on Films {
+  ID,
+  title,
+  genre.name as genreName,
+  budget,
+  boxOffice,
+  duration
+}
+
 entity Finances : cuid, managed {
   expenseType : String;
   amount        : Decimal;
