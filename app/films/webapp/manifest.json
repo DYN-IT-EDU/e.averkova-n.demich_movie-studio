@@ -169,6 +169,16 @@
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "AnalyticalTable"
+                  },
+                  "columns": {
+                    "Field": {
+                      "header": "Field",
+                      "position": {
+                        "anchor": "DataField::title",
+                        "placement": "After"
+                      },
+                      "template": "sap.capire.moviestudio.films.ext.fragment.Field"
+                    }
                   }
                 }
               },
