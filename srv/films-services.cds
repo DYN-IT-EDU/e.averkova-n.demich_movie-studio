@@ -4,7 +4,7 @@ service FilmsService @(path: '/films') {
     entity Genres as projection on m.Genres;
     entity FilmsAggregate as projection on m.FilmsAggregate;
     
-    @requires           : 'authenticated-user'
+    //@requires           : 'authenticated-user'
     @cds.redirection.target
     entity Films                            as
         projection on m.Films {
@@ -25,7 +25,7 @@ service FilmsService @(path: '/films') {
             action SchedulePremiere() returns Films;
         };
 
-    @requires: 'films-services.Admin'
+    //@requires: 'films-services.Admin'
     entity FilmsByDirector                  as
         select from m.Films {
             key ID,
@@ -41,14 +41,14 @@ service FilmsService @(path: '/films') {
             genre.name,
             description;
 
-    @requires: 'films-services.Viewer'
-    entity FilmsByTitleView(title : String) as
-        select from Films
-        where Films.title = :title;
+    // @requires: 'films-services.Viewer'
+    // entity FilmsByTitleView(title : String) as
+    //     select from Films
+    //     where Films.title = :title;
 
-    @requires: 'films-services.Viewer'
+    //@requires: 'films-services.Viewer'
     function GetFilmsByDuration(duration : Integer) returns array of Films;
 
-    @requires: 'films-services.Viewer'
+    //@requires: 'films-services.Viewer'
     function sleep() returns Boolean;
 }

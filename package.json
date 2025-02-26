@@ -20,6 +20,7 @@
     },
     "scripts": {
         "start": "cds-serve",
+        "watch-films-aggregate": "cds watch --open films/webapp/index.html?sap-ui-xx-viewCache=false#/FilmsAggregate",
         "watch-films": "cds watch --open films/webapp/index.html?sap-ui-xx-viewCache=false",
         "undeploy": "cf undeploy movie-studio --delete-services --delete-service-keys --delete-service-brokers",
         "build": "rimraf resources mta_archives && mbt build --mtar archive",
@@ -41,7 +42,7 @@
             "destinations": true,
             "html5-repo": true,
             "workzone": true,
-            "auth": "xsuaa"
+            "auth": "mocked"
         }
     },
     "sapux": [

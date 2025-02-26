@@ -10,7 +10,7 @@ sap.ui.define([
       onPress: function(oEvent) {
         var oButton = oEvent.getSource();
         var oContext = oButton.getBindingContext();
-
+        
         if (!_oPopover) {
           _oPopover = new Popover({
             showHeader: false,

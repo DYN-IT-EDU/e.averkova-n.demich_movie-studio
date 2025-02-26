@@ -37,10 +37,10 @@ service MovieStudio {
             Films.ID,
             title;
 
-    @cds.redirection.target
-    entity FilmTitle(filmID : String) as
-        select from my.Films
-        where Films.ID = :filmID;
+    // @cds.redirection.target
+    // entity FilmTitle(filmID : String) as
+    //     select from my.Films
+    //     where Films.ID = :filmID;
 
     function ShowHighBudgetFilms() returns array of Films;
 
